@@ -262,6 +262,7 @@ main {
 
 .flexfooter {
     display: flex;
+    width: 100%;
 }
 
 .leftcolumn {
@@ -271,6 +272,34 @@ main {
     flex-shrink: 1;
     flex-basis: 0%;
     min-width: 150px;
+}
+
+.centercolumn {
+    width: 33%;
+    display: flex;
+    flex-grow: 3;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    min-width: 150px;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerhover:hover {
+    fill: grey;
+}
+.playerhover1:hover {
+    fill: white;
+}
+
+.rightcolumn {
+    width: 33%;
+    display: flex;
+    flex-grow: 3;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    min-width: 150px;
+    align-items: center;
 }
 
 .columnartista {
@@ -291,6 +320,8 @@ main {
     object-fit: cover;
     object-fit: contain;
     max-width: 100%;
+    position: relative;
+    padding-right: 10px;
 }
 
 .columnartista a {
@@ -335,6 +366,69 @@ label {
     color: red;
     display: block;
 }
+
+.riproduzioneimg {
+    position: relative;
+}
+
+.riproduzione {
+    position: absolute;
+    left: 60px;
+
+}
+
+/* .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
+.mainplayer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.whitericon {
+    fill: white;
+
+}
+
+.hifi {
+    background-color: rgba(246,245,255,.1);
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12px;
+    width: 32px;
+}
+
+.hifi:hover {
+    background-color: rgba(0,255,255,.2);
+    color: #0ff;
+}
+
+.time {
+    display: flex;
+}
+
+.greytime {
+    color: #4c4e54;
+    margin-right: 5px;
+}
+
+.whitetime {
+    color: hsla(0,0%,100%,.5);
+}
+
+
 
 @media screen and (max-width:875px) {
 
