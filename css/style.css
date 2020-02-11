@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 body {
@@ -276,6 +277,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
 }
 
 .squareimg {
@@ -293,6 +295,45 @@ main {
 
 .columnartista a {
     font-size: 10px;
+}
+
+.rowrhearts {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-left: 14px;
+}
+
+.small {
+    min-width: 1.31432rem;
+    min-height: 1.31432rem;
+    width: 1.31432rem;
+    height: 1.31432rem;
+    fill: rgba(229,238,255,.8);
+}
+
+label {
+    cursor: pointer;
+}
+
+.heart {
+    color: rgba(229,238,255,.8);
+    padding-left: 10px;
+}
+
+.heart:hover {
+    color: red;
+}
+
+#heartsclick{
+    display: none;
+}
+
+#heartsclick:checked + label {
+    fill: #e2264d;
+    color: red;
+    display: block;
 }
 
 @media screen and (max-width:875px) {
