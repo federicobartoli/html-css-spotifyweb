@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic,spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,Meiryo,MS Gothic,sans-serif;
+}
+
+.clearfix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.container {
+    display: flex;
+    flex: auto;
+    max-height: 100vh;
+    max-width: 100vw;
+}
+
+aside {
+    position: relative;
+    width: 250px;
+    float: left;
+    padding-top: 24px;
+    background-color: rgb(36, 37, 40);
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    overflow-y: auto;
+    contain: strict;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-aside {
+    padding-left: 23px;
+    flex-direction: column;
+}
+
+.logo {
+    padding-bottom: 40px;
+    padding-left: 5px;
+}
+
+.logo img {
+    width: 131px;
+    height: 40px;
+}
+
+#items {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 300;
+    height: 35px;
+    border-radius: 8px;
+    padding: 0 12px;
+    margin: 0 12px 0 0px;
+}
+
+#items:hover {
+    background-color: #4c4e54;
+}
+
+#items:hover, #items:active {
+    color: #0ff;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.text {
+    min-width: 40px;
+}
+
+.icon-responsive {
+    display: none;
+    min-width: 1.71432rem;
+    min-height: 1.71432rem;
+    width: 1.71432rem;
+    height: 1.71432rem;
+    fill:white;
+}
+
+.navigationbarrow {
+    float: left;
+    display: flex;
+
+    flex-shrink: 0;
+    padding: 18px 24px 0;
+    width: calc(100% - 250px);
+    height: 54px;
+    position: fixed;
+    background-color: red;
+    opacity: 0.5;
+
+}
+
+
+.navarea {
+    display: flex;
+    align-items: center;
+}
+
+main {
+    background-color: black;
+    float: left;
+    height: 100vh;
+    width: calc(100% - 250px);
+    overflow-y: auto;
+    display: flex;
+}
+
+.icon-noresposive img {
+    min-width: 1.71432rem;
+    min-height: 1.71432rem;
+    width: 1.71432rem;
+    height: 1.71432rem;
+    fill: white;
+}
+
+
+
+@media screen and (max-width:875px) {
+    .icon-responsive {
+        display: block;
+    }
+    .text {
+        display: none;
+    }
+}
