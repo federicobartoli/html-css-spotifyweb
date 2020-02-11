@@ -204,7 +204,7 @@ main {
     float: left;
     display: flex;
     flex-shrink: 0;
-    padding: 18px 24px 0;
+    padding: 14px 24px 14px;
     width: 100%;
     height: 10vh;
     border-top: 1px solid gray;
@@ -261,15 +261,38 @@ main {
 
 .flexfooter {
     display: flex;
-    padding-top: 96px;
 }
 
 .leftcolumn {
     width: 33%;
+    display: flex;
     flex-grow: 3;
     flex-shrink: 1;
     flex-basis: 0%;
     min-width: 150px;
+}
+
+.columnartista {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.squareimg {
+    display: flex;
+    height: 100%;
+    width: 20%
+}
+
+.squareimg img {
+    height: auto;
+    object-fit: cover;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+.columnartista a {
+    font-size: 10px;
 }
 
 @media screen and (max-width:875px) {
