@@ -4,6 +4,45 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/4aa4c430a6.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+        <script type="text/javascript" src="dist/jplayer/jquery.jplayer.min.js"></script>
+        <script type="text/javascript" src="lib/circle-player/js/jquery.transform2d.js"></script>
+        <script type="text/javascript" src="lib/circle-player/js/jquery.grab.js"></script>
+        <script type="text/javascript" src="lib/circle-player/js/mod.csstransforms.min.js"></script>
+        <script type="text/javascript" src="lib/circle-player/js/circle.player.js"></script>
+        <script type="text/javascript">
+//<![CDATA[
+
+$(document).ready(function(){
+
+	/*
+	 * Instance CirclePlayer inside jQuery doc ready
+	 *
+	 * CirclePlayer(jPlayerSelector, media, options)
+	 *   jPlayerSelector: String - The css selector of the jPlayer div.
+	 *   media: Object - The media object used in jPlayer("setMedia",media).
+	 *   options: Object - The jPlayer options.
+	 *
+	 * Multiple instances must set the cssSelectorAncestor in the jPlayer options. Defaults to "#cp_container_1" in CirclePlayer.
+	 *
+	 * The CirclePlayer uses the default supplied:"m4a, oga" if not given, which is different from the jPlayer default of supplied:"mp3"
+	 * Note that the {wmode:"window"} option is set to ensure playback in Firefox 3.6 with the Flash solution.
+	 * However, the OGA format would be used in this case with the HTML solution.
+	 */
+
+	var myCirclePlayer = new CirclePlayer("#jquery_jplayer_1",
+	{
+		m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
+		oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
+	}, {
+		cssSelectorAncestor: "#cp_container_1",
+		swfPath: "../../dist/jplayer",
+		wmode: "window",
+		keyEnabled: true
+	});
+});
+//]]>
+</script>
         <link rel="preload" href="https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Book.3466e0ec.woff2" as="font" type="font/woff2" crossorigin="">
         <link rel="preload" href="https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Bold.8d0a45cc.woff2" as="font" type="font/woff2" crossorigin="">
         <link rel="preload" href="https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Light.afd9ab26.woff2" as="font" type="font/woff2" crossorigin="">
@@ -13,6 +52,7 @@
         <title>Spotify Web App</title>
     </head>
     <body>
+        <div id="jquery_jplayer_1" class="cp-jplayer"></div>
     <div class="container">
 
 
@@ -145,7 +185,8 @@
                 <div class="mainplayer">
                     <svg class="icon- small  playerhover1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.2 14.8L19.6 16.2 14.7 16.2 12 12 14.7 7.8 19.6 7.8 18.2 9.2 19.3 10.3 22.5 7 19.3 3.8 18.2 4.9 19.6 6.3 13.8 6.3 11.1 10.6 8.4 6.3 2.5 6.3 2.5 7.8 7.5 7.8 10.2 12 7.5 16.2 2.5 16.2 2.5 17.7 8.4 17.7 11.1 13.4 13.8 17.7 19.6 17.7 18.2 19.1 19.3 20.2 22.5 16.9 19.3 13.7 18.2 14.8z"></path></svg>
                     <svg  class="icon- whitericon playerhover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 4L8 11.3 8 4 5 4 5 20 8 20 8 12.7 19 20 19 4z"></path></svg>
-                    <svg  class="icon- whitericon playerhover"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 0L4 24 22 12 4 0z"></path></svg>
+                    <div id="cp_container_1" class="cp-container"><a class="cp-play"> <svg  class="icon- whitericon playerhover"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 0L4 24 22 12 4 0z"></path></svg></a>
+                    <a class="cp-pause" style="display:none;"> <svg  class="icon- whitericon playerhover"   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 0H10V24H4z"></path><path d="M14 0H20V24H14z"></path></svg></a></div>
                     <svg  class="icon- whitericon playerhover"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M16 4L16 11.3 5 4 5 20 16 12.7 16 20 19 20 19 4 16 4z"></path></svg>
                     <svg class="icon- small playerhover1"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.16,13.2H8.85V11.7H3.6V17H5.1V14.26L11,20.18a.75.75,0,0,0,.53.22h8.1V18.9H11.86Z"></path><path d="M18.9,7V9.74L13,3.82a.75.75,0,0,0-.53-.22H4.35V5.1h7.79l5.7,5.7H15.15v1.5H20.4V7Z"></path></svg>
                 </div>
@@ -159,7 +200,12 @@
                     <p class="whitetime"> 3:25</p>
 
                 </div>
+
+                <div class="volumeslider">
+                    <svg class="icon- whitericon marginslider" xmlns="http://www.w3.org/2000/svg" class="icon--wOcoD" viewBox="0 0 24 24"><path d="M1.83,8.64v6.72l4.08.51,8.22,5.65V2.47L5.9,8.13Zm10.8-3.31V18.67L6.45,14.43,3.33,14V10l3.12-.39Z"></path><path d="M18.2,3.8l-.81,1.26a8.25,8.25,0,0,1,0,13.88l.81,1.26a9.75,9.75,0,0,0,0-16.4Z"></path><path d="M15.9,6.11l-.83,1.25a5.56,5.56,0,0,1,0,9.28l.83,1.25a7.06,7.06,0,0,0,0-11.78Z"></path></svg>
+                </div>
             </div>
+
         </div>
     </footer>
     </body>

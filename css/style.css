@@ -428,7 +428,23 @@ label {
     color: hsla(0,0%,100%,.5);
 }
 
+.volumeslider {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 22px;
+}
 
+.marginslider {
+    margin-right: 12px;
+}
+
+.playerhover {
+    cursor: pointer;
+}
+
+.playerhover1 {
+    cursor: pointer;
+}
 
 @media screen and (max-width:875px) {
 
