@@ -41,6 +41,8 @@ header {
 }
 
 .navbar-aside {
+    width: 100%;
+    display: flex;
     padding-left: 23px;
     flex-direction: column;
 }
@@ -48,6 +50,12 @@ header {
 .logo {
     padding-bottom: 40px;
     padding-left: 5px;
+}
+.logocell {
+    padding-bottom: 40px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .logo img {
@@ -106,6 +114,14 @@ a {
 
 }
 
+.classnone {
+    display: none;
+    min-width: 1.71432rem;
+    min-height: 1.71432rem;
+    width: 1.71432rem;
+    height: 1.71432rem;
+}
+
 
 .navarea {
     display: flex;
@@ -129,13 +145,130 @@ main {
     fill: white;
 }
 
+.icon-  {
+    min-width: 1.71432rem;
+    min-height: 1.71432rem;
+    width: 1.71432rem;
+    height: 1.71432rem;
+    fill: rgba(229,238,255,.8);
+    margin-right: 14px;
+}
+
+.sectioncollection {
+    margin: 32px 0 0;
+}
+
+.headeritem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 0 12px;
+    color: rgba(229,238,255,.6);
+    font-size: .85716rem;
+    line-height: .85716rem;
+    letter-spacing: .036rem;
+    font-weight: 600;
+
+}
 
 
 @media screen and (max-width:875px) {
+
+
+    aside {
+        position: relative;
+        width: 200px;
+        float: left;
+        padding-top: 24px;
+        background-color: rgb(36, 37, 40);
+        display: flex;
+        flex-grow: 1;
+        flex-shrink: 0;
+        overflow-y: auto;
+        contain: strict;
+    }
+
+    main {
+        background-color: black;
+        float: left;
+        height: 100vh;
+        width: calc(100% - 200px);
+        overflow-y: auto;
+        display: flex;
+    }
+
+    .navigationbarrow {
+        float: left;
+        display: flex;
+
+        flex-shrink: 0;
+        padding: 18px 24px 0;
+        width: calc(100% - 200px);
+        height: 54px;
+        position: fixed;
+        background-color: red;
+        opacity: 0.5;
+
+    }
+
+}
+@media screen and (max-width:668px) {
     .icon-responsive {
         display: block;
     }
     .text {
         display: none;
     }
+
+    aside {
+        position: relative;
+        width: 50px;
+        float: left;
+        padding-top: 24px;
+        background-color: rgb(36, 37, 40);
+        display: flex;
+        flex-grow: 1;
+        flex-shrink: 0;
+        overflow-y: auto;
+        contain: strict;
+    }
+
+    main {
+        background-color: black;
+        float: left;
+        height: 100vh;
+        width: calc(100% - 50px);
+        overflow-y: auto;
+        display: flex;
+    }
+
+    .navigationbarrow {
+        float: left;
+        display: flex;
+        flex-shrink: 0;
+        padding: 18px 24px 0;
+        width: calc(100% - 50px);
+        height: 54px;
+        position: fixed;
+        background-color: red;
+        opacity: 0.5;
+
+    }
+
+    .logo img {
+        display: none;
+    }
+
+    .classnone {
+        display: block;
+
+    }
+
+    .navbar-aside {
+        width: 100%;
+        display: flex;
+        padding-left: 0px;
+        flex-direction: column;
+    }
+
 }
