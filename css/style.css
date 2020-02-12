@@ -38,7 +38,7 @@ body {
 aside {
     position: relative;
     width: 250px;
-    float: left;
+
     padding-top: 24px;
     background-color: rgb(36, 37, 40);
     display: flex;
@@ -74,7 +74,7 @@ header {
 .searchform label,
 .searchform input {
   color: white;
-  float: left;
+
   vertical-align: baseline;
 }
 
@@ -182,7 +182,6 @@ a {
 }
 
 .navigationbarrow {
-    float: left;
     display: flex;
     flex-shrink: 0;
     padding:0 24px 0;
@@ -214,7 +213,6 @@ a {
 
 main {
     background-color: black;
-    float: left;
     height: calc(100vh - 100px);
     width: calc(100% - 250px);
     overflow-y: auto;
@@ -249,12 +247,11 @@ main {
     display: flex;
 }
 
-.overlay {
+/* .overlay {
     display: none
 }
 
 #scrittehover {
-    z-index: 2;
     color: white;
 }
 
@@ -269,7 +266,6 @@ main {
 
 .pointer {
     cursor:pointer;
-    position: relative;
 }
 
 .overlay span {
@@ -279,19 +275,19 @@ main {
     transform: translate(-50% , -50%);
     font-size: 50px;
     color: white;
-}
+} */
 
 .itemcontainer-1 {
     width: 320px;
     margin-right: 15px;
     transition: all 0.50s ease;
-    position: relative;
+
 }
 
 .itemcontainer-1:hover {
     opacity: 0.5;
-
 }
+
 .mixcontainer-2 {
     width: 170px;
     margin-right: 15px;
@@ -431,7 +427,6 @@ h4 {
 }
 
 .mediaplay {
-    float: left;
     display: flex;
     flex-shrink: 0;
     padding: 14px 24px 14px;
@@ -439,7 +434,6 @@ h4 {
     height: 100px;
     border-top: 1px solid gray;
     background: #181818;
-    min-width:630px;
     position: relative;
 }
 
@@ -839,7 +833,7 @@ label {
     aside {
         position: relative;
         width: 200px;
-        float: left;
+
         padding-top: 24px;
         background-color: rgb(36, 37, 40);
         display: flex;
@@ -850,7 +844,7 @@ label {
 
     main {
         background-color: black;
-        float: left;
+
         height: calc(100vh - 100px);
         width: calc(100% - 200px);
         overflow-y: auto;
@@ -858,7 +852,7 @@ label {
     }
 
     .navigationbarrow {
-        float: left;
+
         display: flex;
         flex-shrink: 0;
         padding: 24px 0;
@@ -898,7 +892,7 @@ label {
     aside {
         position: relative;
         width: 50px;
-        float: left;
+
         padding-top: 24px;
         background-color: rgb(36, 37, 40);
         display: flex;
@@ -912,7 +906,7 @@ label {
     aside:hover {
         position: relative;
         width: 200px;
-        float: left;
+
         padding-top: 24px;
         background-color: rgb(36, 37, 40);
         display: flex;
@@ -923,27 +917,27 @@ label {
         contain: strict;
     }
 
-    .containeritemilmegliodelpeggio {
-    display: flex;
-    flex-direction: column;
-    }
+        .containeritemilmegliodelpeggio {
+        display: flex;
+        flex-direction: column;
+        }
 
-    .itemcontainer-1 {
-    width: 320px;
-    margin-right: 15px;
-    margin-bottom: 50px;
-    }
+        .itemcontainer-1 {
+        width: 320px;
+        margin-right: 15px;
+        margin-bottom: 50px;
+        }
 
     main {
         background-color: black;
-        float: left;
+
         height: calc(100vh - 100px);
         width: calc(100% - 50px);
         overflow-y: auto;
         overflow-x: hidden;
     }
     .navigationbarrow {
-        float: left;
+
         display: flex;
         flex-shrink: 0;
         width: calc(100% - 50px);
