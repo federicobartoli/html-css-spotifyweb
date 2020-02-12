@@ -281,6 +281,17 @@ main {
     width: 100%;
 }
 
+.image2 img{
+    height: 170px;
+    width: 170px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.image2 {
+    width: 100%;
+}
+
 .descrizioni {
     width: 320px;
     height: 100px;
