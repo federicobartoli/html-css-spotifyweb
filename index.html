@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <script src="https://kit.fontawesome.com/4aa4c430a6.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="lib/jquery.min.js"></script>
         <script type="text/javascript" src="dist/jplayer/jquery.jplayer.min.js"></script>
@@ -11,7 +11,120 @@
         <script type="text/javascript" src="lib/circle-player/js/mod.csstransforms.min.js"></script>
         <script type="text/javascript" src="lib/circle-player/js/circle.player.js"></script>
         <script type="text/javascript">
+
 //<![CDATA[
+
+var jPlayerAndroidFix = (function($) {
+	var fix = function(id, media, options) {
+		this.playFix = false;
+		this.init(id, media, options);
+	};
+	fix.prototype = {
+		init: function(id, media, options) {
+			var self = this;
+
+			// Store the params
+			this.id = id;
+			this.media = media;
+			this.options = options;
+
+			// Make a jQuery selector of the id, for use by the jPlayer instance.
+			this.player = $(this.id);
+
+			// Make the ready event to set the media to initiate.
+			this.player.bind($.jPlayer.event.ready, function(event) {
+				// Use this fix's setMedia() method.
+				self.setMedia(self.media);
+			});
+
+			// Apply Android fixes
+			if($.jPlayer.platform.android) {
+
+				// Fix playing new media immediately after setMedia.
+				this.player.bind($.jPlayer.event.progress, function(event) {
+					if(self.playFixRequired) {
+						self.playFixRequired = false;
+
+						// Enable the contols again
+						// self.player.jPlayer('option', 'cssSelectorAncestor', self.cssSelectorAncestor);
+
+						// Play if required, otherwise it will wait for the normal GUI input.
+						if(self.playFix) {
+							self.playFix = false;
+							$(this).jPlayer("play");
+						}
+					}
+				});
+				// Fix missing ended events.
+				this.player.bind($.jPlayer.event.ended, function(event) {
+					if(self.endedFix) {
+						self.endedFix = false;
+						setTimeout(function() {
+							self.setMedia(self.media);
+						},0);
+						// what if it was looping?
+					}
+				});
+				this.player.bind($.jPlayer.event.pause, function(event) {
+					if(self.endedFix) {
+						var remaining = event.jPlayer.status.duration - event.jPlayer.status.currentTime;
+						if(event.jPlayer.status.currentTime === 0 || remaining < 1) {
+							// Trigger the ended event from inside jplayer instance.
+							setTimeout(function() {
+								self.jPlayer._trigger($.jPlayer.event.ended);
+							},0);
+						}
+					}
+				});
+			}
+
+			// Instance jPlayer
+			this.player.jPlayer(this.options);
+
+			// Store a local copy of the jPlayer instance's object
+			this.jPlayer = this.player.data('jPlayer');
+
+			// Store the real cssSelectorAncestor being used.
+			this.cssSelectorAncestor = this.player.jPlayer('option', 'cssSelectorAncestor');
+
+			// Apply Android fixes
+			this.resetAndroid();
+
+			return this;
+		},
+		setMedia: function(media) {
+			this.media = media;
+
+			// Apply Android fixes
+			this.resetAndroid();
+
+			// Set the media
+			this.player.jPlayer("setMedia", this.media);
+			return this;
+		},
+		play: function() {
+			// Apply Android fixes
+			if($.jPlayer.platform.android && this.playFixRequired) {
+				// Apply Android play fix, if it is required.
+				this.playFix = true;
+			} else {
+				// Other browsers play it, as does Android if the fix is no longer required.
+				this.player.jPlayer("play");
+			}
+		},
+		resetAndroid: function() {
+			// Apply Android fixes
+			if($.jPlayer.platform.android) {
+				this.playFix = false;
+				this.playFixRequired = true;
+				this.endedFix = true;
+				// Disable the controls
+				// this.player.jPlayer('option', 'cssSelectorAncestor', '#NeverFoundDisabled');
+			}
+		}
+	};
+	return fix;
+})(jQuery);
 
 $(document).ready(function(){
 
@@ -38,7 +151,7 @@ $(document).ready(function(){
     </head>
     <body>
         <div id="jquery_jplayer_1" class="cp-jplayer"></div>
-    <div class="container">
+    <div class="container clearfix">
 
 
         <aside class="">
@@ -132,13 +245,34 @@ $(document).ready(function(){
 
         <main>
             <header class="navigationbarrow">
-                <div class="navarea">
-                    <span class="icon-noresposive">
-                        <img src="img/freccia1.svg" alt="">
-                    </span>
-                </div>
-            </header>
 
+                    <div class="homebar">
+                        <span class="icon-noresposive">
+                            <svg class="icon-  playerhover1" xmlns="http://www.w3.org/2000/svg" class="icon--2WIxM" viewBox="0 0 24 24"><path d="M20 11.3L7.8 11.3 13.5 5.5 12.5 4.5 4.9 12 12.5 19.5 13.5 18.5 7.8 12.8 20 12.8 20 11.3z"></path></svg>
+                            <svg class="icon-  playerhover1" xmlns="http://www.w3.org/2000/svg" class="icon--2WIxM" viewBox="0 0 24 24"><path d="M11.5 4.5L10.5 5.5 16.2 11.3 4 11.3 4 12.8 16.2 12.8 10.5 18.5 11.5 19.5 19.1 12 11.5 4.5z"></path></svg>
+                        </span>
+                    <a class="home" href="#">Home</a>
+                    </div>
+                    <div class="">
+                        <form class="clearfix searchform">
+                          <label for="search-box">
+                                <span class="icon- fa fa-search fa-flip-horizontal"></span>
+                          </label>
+                                <input type="search" id="search-box" placeholder="" />
+                        </form>
+                    </div>
+
+            </header>
+            <div class="contentmain">
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+            </div>
         </main>
 
 
@@ -156,12 +290,12 @@ $(document).ready(function(){
                     </div>
                 </div>
                 <div class="columnartista">
-                    <a href="#">Peculiarities</a>
-                    <a href="#">Federico Bartoli</a>
-                    <a href="#">In play da: Peculiarities(single)</a>
+                    <a class="titolihover" href="#">Peculiarities</a>
+                    <a class="titolihover centerartista" href="#">Federico Bartoli</a>
+                    <a class="titolihover downartista" href="#">In play da: Peculiarities(single)</a>
                 </div>
                 <div class="rowrhearts">
-                <svg class="small"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="18.5" cy="12" r="1.5"></circle></svg>
+                <svg class="small circleclick"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="18.5" cy="12" r="1.5"></circle></svg>
                 <input id="heartsclick" type="checkbox"/>
                 <label class="small heart" for="heartsclick"> &hearts; </label>
                 </div>
@@ -183,11 +317,14 @@ $(document).ready(function(){
                 <div class="time">
                     <p class="greytime">0:00 /</p>
                     <p class="whitetime"> 3:25</p>
-
                 </div>
 
                 <div class="volumeslider">
                     <svg class="icon- whitericon marginslider" xmlns="http://www.w3.org/2000/svg" class="icon--wOcoD" viewBox="0 0 24 24"><path d="M1.83,8.64v6.72l4.08.51,8.22,5.65V2.47L5.9,8.13Zm10.8-3.31V18.67L6.45,14.43,3.33,14V10l3.12-.39Z"></path><path d="M18.2,3.8l-.81,1.26a8.25,8.25,0,0,1,0,13.88l.81,1.26a9.75,9.75,0,0,0,0-16.4Z"></path><path d="M15.9,6.11l-.83,1.25a5.56,5.56,0,0,1,0,9.28l.83,1.25a7.06,7.06,0,0,0,0-11.78Z"></path></svg>
+                    <div class="musicslider"></div>
+                    <div class="musicsliderempty"></div>
+                    <div class="circleplayerbottom"><i class="fas fa-circle"></i></div>
+                    <svg class="icon- small playhover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 17.6H20.099999999999998V19.1H3.9z"></path><path d="M3.9 11.3H20.099999999999998V12.8H3.9z"></path><path d="M17.3 7.9L18.4 8.9 21.6 5.7 18.4 2.5 17.3 3.5 18.7 5 3.9 5 3.9 6.5 18.7 6.5 17.3 7.9z"></path></svg>
                 </div>
             </div>
 

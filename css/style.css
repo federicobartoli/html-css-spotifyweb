@@ -7,6 +7,7 @@
 
 body {
     font-family: spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic,spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,Meiryo,MS Gothic,sans-serif;
+    overflow-x: hidden;
 }
 
 #none {
@@ -28,8 +29,9 @@ body {
 .container {
     display: flex;
     flex: auto;
-    max-height: 90vh;
-    max-width: 100vw;
+    height: calc(100vh - 100px);
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 aside {
@@ -42,7 +44,6 @@ aside {
     flex-grow: 1;
     flex-shrink: 0;
     overflow-y: auto;
-    contain: strict;
 }
 
 header {
@@ -50,6 +51,54 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+
+.home {
+    color: white;
+    align-self: center;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.homebar {
+    display: flex;
+}
+
+
+
+.searchform {
+  display: flex;
+  margin: 0;
+}
+
+.searchform label,
+.searchform input {
+  color: white;
+  float: left;
+  vertical-align: baseline;
+}
+
+.searchform label {
+    margin: 0px 5px 0 0;
+}
+
+.searchform input[type=search] {
+  font: 16px Open Sans, Arial, Sans-serif;
+  border: 3px solid #737373;
+  border-width: 0 0 3px;
+  background-color: transparent;
+  width: 80%;
+  position: relative;
+  bottom: 12px;
+}
+
+.searchform input[type=search]:focus {
+  border-color: white;
+  color: white;
+  outline: 0;
+  position: relative;
+  bottom: 8px;
+}
+
 
 .navbar-aside {
     width: 100%;
@@ -134,15 +183,17 @@ a {
 .navigationbarrow {
     float: left;
     display: flex;
-
     flex-shrink: 0;
-    padding: 18px 24px 0;
+    padding:0 24px 0;
     width: calc(100% - 250px);
     height: 54px;
     position: fixed;
-    background-color: red;
-    opacity: 0.5;
+    background-color: black;
+    position: fixed;
+}
 
+.fa-search {
+    padding-top: 5px;
 }
 
 .classnone {
@@ -157,24 +208,35 @@ a {
 .navarea {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 main {
     background-color: black;
     float: left;
-    height: 90vh;
+    height: calc(100vh - 100px);
     width: calc(100% - 250px);
     overflow-y: auto;
     display: flex;
+    overflow-x: hidden;
 }
 
-.icon-noresposive img {
+.contentmain {
+    display: flex;
+    padding-top: 60px;
+}
+
+h1 {
+    color: white;
+}
+
+/* .icon-noresposive {
     min-width: 1.71432rem;
     min-height: 1.71432rem;
     width: 1.71432rem;
     height: 1.71432rem;
     fill: white;
-}
+} */
 
 .icon-  {
     min-width: 1.71432rem;
@@ -199,6 +261,8 @@ main {
     line-height: .85716rem;
     letter-spacing: .036rem;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mediaplay {
@@ -207,7 +271,7 @@ main {
     flex-shrink: 0;
     padding: 14px 24px 14px;
     width: 100%;
-    height: 10vh;
+    height: 100px;
     border-top: 1px solid gray;
     background-color: black;
     position: relative;
@@ -220,7 +284,7 @@ main {
     background: chocolate;
     position: absolute;
     top: 0;
-    right: 200px;;
+    right: 200px;
     transition: opacity .15s ease;
 }
 
@@ -300,13 +364,36 @@ main {
     flex-basis: 0%;
     min-width: 150px;
     align-items: center;
+    justify-content: center;
 }
 
 .columnartista {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    transition: all 0.32s;
+}
 
+.columnartista a {
+    font-size: 15px;
+}
+
+.centerartista {
+    font-size: 12px;
+    color: #999ea7;
+}
+
+.downartista {
+    font-size: 11px;
+    color: #999ea7;
+}
+
+.titolihover {
+    transition: all 0.32s;
+}
+
+.titolihover:hover {
+    opacity: 0.5;
 }
 
 .squareimg {
@@ -324,9 +411,6 @@ main {
     padding-right: 10px;
 }
 
-.columnartista a {
-    font-size: 10px;
-}
 
 .rowrhearts {
     display: flex;
@@ -351,6 +435,16 @@ label {
 .heart {
     color: rgba(229,238,255,.8);
     padding-left: 10px;
+    transition: all 0.32s;
+}
+
+.circleclick {
+    transition: all 0.32s;
+    cursor: pointer;
+}
+
+.circleclick:hover {
+    opacity: 0.5
 }
 
 .heart:hover {
@@ -369,6 +463,13 @@ label {
 
 .riproduzioneimg {
     position: relative;
+    transition: all 0.32s;
+    cursor: pointer;
+}
+
+.riproduzioneimg:hover {
+    opacity: 0.5;
+    transform: scale(1.3);
 }
 
 .riproduzione {
@@ -408,11 +509,35 @@ label {
     align-items: center;
     height: 12px;
     width: 32px;
+    transition: all 0.32s;
 }
 
 .hifi:hover {
     background-color: rgba(0,255,255,.2);
     color: #0ff;
+    animation: miscuoto 0.15s  infinite;
+}
+
+@keyframes miscuoto {
+    0% {
+    transform: rotate(0deg)
+    }
+
+    25% {
+    transform: rotate(15deg)
+    }
+
+    50% {
+    transform: rotate(0deg)
+    }
+
+    75% {
+    transform: rotate(-15deg)
+    }
+
+    100% {
+    transform: rotate(05deg)
+    }
 }
 
 .time {
@@ -422,10 +547,20 @@ label {
 .greytime {
     color: #4c4e54;
     margin-right: 5px;
+    transition: all 0.32s;
 }
 
 .whitetime {
     color: hsla(0,0%,100%,.5);
+    transition: all 0.32s;
+}
+
+.greytime:hover {
+    color: white;
+}
+
+.whitetime:hover {
+    color: white;
 }
 
 .volumeslider {
@@ -436,18 +571,68 @@ label {
 
 .marginslider {
     margin-right: 12px;
+    transition: all 0.32s;
+}
+
+.marginslider:hover {
+    opacity: 0.5;
 }
 
 .playerhover {
     cursor: pointer;
+    transition: all 0.32s;
 }
 
 .playerhover1 {
     cursor: pointer;
+    transition: all 0.32s;
+}
+
+.musicslider {
+    height: 3px;
+    background: white;
+    width: 50px;
+}
+
+.musicsliderempty {
+    height: 3px;
+    background: white;
+    width: 50px;
+    opacity: 0.5;
+}
+
+.circleplayerbottom {
+    opacity: 1;
+    color: white;
+    position: relative;
+    right: 50px;
+    transition: opacity 1s ease;
+}
+
+.circleplayerbottom:hover {
+    animation: vadodovevoglio 3s ;
+}
+
+@keyframes vadodovevoglio {
+    0% {
+        right: 50px;
+    }
+
+    50% {
+        right: 100px;
+    }
+
+    100% {
+        right: 0px;
+    }
+
 }
 
 @media screen and (max-width:875px) {
 
+    .container {
+        overflow-x: hidden;
+    }
 
     aside {
         position: relative;
@@ -459,13 +644,11 @@ label {
         flex-grow: 1;
         flex-shrink: 0;
         overflow-y: auto;
-        contain: strict;
     }
 
     main {
         background-color: black;
         float: left;
-        height: 90vh;
         width: calc(100% - 200px);
         overflow-y: auto;
         display: flex;
@@ -475,17 +658,20 @@ label {
         float: left;
         display: flex;
         flex-shrink: 0;
-        padding: 18px 24px 0;
+        padding: 24px 0;
         width: calc(100% - 200px);
         height: 54px;
         position: fixed;
-        background-color: red;
-        opacity: 0.5;
 
     }
 
 }
 @media screen and (max-width:668px) {
+
+    .container {
+        overflow-x: hidden;
+    }
+
     .icon-responsive {
         display: block;
     }
@@ -529,21 +715,18 @@ label {
     main {
         background-color: black;
         float: left;
-        height: 90vh;
         width: calc(100% - 50px);
-        overflow-y: auto;
         display: flex;
+        overflow-x: hidden;
     }
 
     .navigationbarrow {
         float: left;
         display: flex;
         flex-shrink: 0;
-        padding: 18px 24px 0;
         width: calc(100% - 50px);
         height: 54px;
-        background-color: red;
-        opacity: 0.5;
+
 
     }
 
